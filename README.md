@@ -1,7 +1,7 @@
-#Setting Up a React Project
+# Setting Up a React Project
 This is a fork of the sample project used in [Setting Up a React Project](http://ccoenraets.github.io/es6-tutorial-react/setup/) tutorial. I had been following this great tutorial to get started with React and following are the changes I had to make to get the project running with **webpack 4**.
 
-###Step 2: Set Up Babel and Webpack
+### Step 2: Set Up Babel and Webpack
 4. Type the following command to install the babel and webpack modules:
 
 ```
