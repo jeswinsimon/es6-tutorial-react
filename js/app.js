@@ -1,17 +1,17 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-var calculatePayment = function(principal, years, rate) {
-    var monthlyRate = rate / 100 / 12;
-    var monthlyPayment = principal * monthlyRate / (1 - (Math.pow(1/(1 + monthlyRate), years * 12)));
-    var balance = principal;
-    var amortization = [];
-    for (var y=0; y<years; y++) {
-        var interestY = 0;  //Interest payment for year y
-        var principalY = 0; //Principal payment for year y
-        for (var m=0; m<12; m++) {
-            var interestM = balance * monthlyRate;       //Interest payment for month m
-            var principalM = monthlyPayment - interestM; //Principal payment for month m
+let calculatePayment = function(principal, years, rate) {
+    let monthlyRate = rate / 100 / 12;
+    let monthlyPayment = principal * monthlyRate / (1 - (Math.pow(1/(1 + monthlyRate), years * 12)));
+    let balance = principal;
+    let amortization = [];
+    for (let y=0; y<years; y++) {
+        let interestY = 0;  //Interest payment for year y
+        let principalY = 0; //Principal payment for year y
+        for (let m=0; m<12; m++) {
+            let interestM = balance * monthlyRate;       //Interest payment for month m
+            let principalM = monthlyPayment - interestM; //Principal payment for month m
             interestY = interestY + interestM;
             principalY = principalY + principalM;
             balance = balance - principalM;
@@ -21,19 +21,19 @@ var calculatePayment = function(principal, years, rate) {
     return {monthlyPayment: monthlyPayment, amortization:amortization};
 };
 
-var Header = React.createClass({
-    render: function () {
+class Header extends React.Component{
+    render() {
         return (
             <header>
                 <h1>{this.props.title}</h1>
             </header>
         );
     }
-});
+};
 
-var AmortizationChart = React.createClass({
-    render: function () {
-        var items = this.props.data.map(function (year, index) {
+class AmortizationChart extends React.Component{
+    render () {
+        let items = this.props.data.map(function (year, index) {
             return (
                 <tr key={index}>
                     <td>{index + 1}</td>
@@ -64,43 +64,44 @@ var AmortizationChart = React.createClass({
             </table>
         );
     }
-});
+};
 
-var MortgageCalculator = React.createClass({
-    getInitialState: function() {
-        return {
+class MortgageCalculator extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
             principal: this.props.principal,
             years: this.props.years,
             rate: this.props.rate
         };
-    },
-    principalChange: function(event) {
+    }
+    principalChange (event) {
         this.setState({principal: event.target.value});
-    },
-    yearsChange: function(event) {
+    }
+    yearsChange (event) {
         this.setState({years: event.target.value});
-    },
-    rateChange: function(event) {
+    }
+    rateChange (event) {
         this.setState({rate: event.target.value});
-    },
-    render: function () {
-        var payment = calculatePayment(this.state.principal, this.state.years, this.state.rate);
-        var monthlyPayment = payment.monthlyPayment;
-        var amortization = payment.amortization;
+    }
+    render () {
+        let payment = calculatePayment(this.state.principal, this.state.years, this.state.rate);
+        let monthlyPayment = payment.monthlyPayment;
+        let amortization = payment.amortization;
         return (
             <div className="content">
                 <div className="form">
                     <div>
                         <label>Principal:</label>
-                        <input type="text" value={this.state.principal} onChange={this.principalChange}/>
+                        <input type="text" value={this.state.principal} onChange={this.principalChange.bind(this)}/>
                     </div>
                     <div>
                         <label>Years:</label>
-                        <input type="text" value={this.state.years} onChange={this.yearsChange}/>
+                        <input type="text" value={this.state.years} onChange={this.yearsChange.bind(this)}/>
                     </div>
                     <div>
                         <label htmlFor="rate">Rate:</label>
-                        <input type="text" value={this.state.rate} onChange={this.rateChange}/>
+                        <input type="text" value={this.state.rate} onChange={this.rateChange.bind(this)}/>
                     </div>
                 </div>
                 <h2>Monthly Payment: <span className="currency">{Number(monthlyPayment.toFixed(2)).toLocaleString()}</span></h2>
@@ -108,10 +109,10 @@ var MortgageCalculator = React.createClass({
             </div>
         );
     }
-});
+};
 
-var App = React.createClass({
-    render: function () {
+class App extends React.Component{
+    render () {
         return (
             <div>
                 <Header title="React Mortgage Calculator"/>
@@ -119,6 +120,6 @@ var App = React.createClass({
             </div>
         );
     }
-});
+};
 
 ReactDOM.render(<App/>,  document.getElementById("app"));
