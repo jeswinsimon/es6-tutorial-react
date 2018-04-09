@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-let calculatePayment = function(principal, years, rate) {
+let calculatePayment = (principal, years, rate) => {
     let monthlyRate = rate / 100 / 12;
     let monthlyPayment = principal * monthlyRate / (1 - (Math.pow(1/(1 + monthlyRate), years * 12)));
     let balance = principal;
@@ -33,7 +33,7 @@ class Header extends React.Component{
 
 class AmortizationChart extends React.Component{
     render () {
-        let items = this.props.data.map(function (year, index) {
+        let items = this.props.data.map((year, index) => {
             return (
                 <tr key={index}>
                     <td>{index + 1}</td>
@@ -85,9 +85,7 @@ class MortgageCalculator extends React.Component{
         this.setState({rate: event.target.value});
     }
     render () {
-        let payment = calculatePayment(this.state.principal, this.state.years, this.state.rate);
-        let monthlyPayment = payment.monthlyPayment;
-        let amortization = payment.amortization;
+        let {monthlyPayment, amortization} = calculatePayment(this.state.principal, this.state.years, this.state.rate);
         return (
             <div className="content">
                 <div className="form">
