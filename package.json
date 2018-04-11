@@ -1,0 +1,32 @@
+{
+  "name": "es6-tutorial-react",
+  "version": "1.0.0",
+  "description": "This is a fork of the sample project used in [Setting Up a React Project](http://ccoenraets.github.io/es6-tutorial-react/setup/) tutorial. I had been following this great tutorial to get started with React and following are the changes I had to make to get the project running with **webpack 4**.",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeswinsimon/es6-tutorial-react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeswinsimon/es6-tutorial-react/issues"
+  },
+  "homepage": "https://github.com/jeswinsimon/es6-tutorial-react#readme"
+}
