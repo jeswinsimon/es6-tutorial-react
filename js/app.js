@@ -16,7 +16,7 @@ let calculatePayment = (principal, years, rate) => {
             principalY = principalY + principalM;
             balance = balance - principalM;
         }
-        amortization.push({principalY: principalY, interestY: interestY, balance: balance});
+        amortization.push({principalY, interestY, balance});
     }
     return {monthlyPayment: monthlyPayment, amortization:amortization};
 };
@@ -33,8 +33,7 @@ class Header extends React.Component{
 
 class AmortizationChart extends React.Component{
     render () {
-        let items = this.props.data.map((year, index) => {
-            return (
+        let items = this.props.data.map((year, index) => 
                 <tr key={index}>
                     <td>{index + 1}</td>
                     <td className="currency principal">{Math.round(year.principalY).toLocaleString()}</td>
@@ -47,8 +46,7 @@ class AmortizationChart extends React.Component{
                     <td className="currency interest">{Math.round(year.interestY).toLocaleString()}</td>
                     <td className="currency">{Math.round(year.balance).toLocaleString()}</td>
                 </tr>
-            );
-        });
+        );
         return (
             <table>
                 <thead>
